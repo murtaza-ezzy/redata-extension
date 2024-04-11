@@ -3,17 +3,20 @@ const Tracking = require('../models/tracking.model');
 module.exports = {
     async add(req, res) {
         try {
-            const { url, time } = req.body;
-            const startOfDay = new Date();
+            const { url, time, captureDate } = req.body;
+
+            const providedDate = new Date(captureDate);
+
+            const startOfDay = new Date(providedDate);
             startOfDay.setUTCHours(0, 0, 0, 0);
 
-            const endOfDay = new Date();
+            const endOfDay = new Date(providedDate);
             endOfDay.setUTCHours(23, 59, 59, 999);
 
             const existingTracking = await Tracking.findOne({
                 uid: req.session.user._id,
                 url,
-                createdAt: { $gte: startOfDay, $lte: endOfDay }
+                captureDate: { $gte: startOfDay, $lte: endOfDay }
             });
 
             if (existingTracking) {
@@ -21,7 +24,7 @@ module.exports = {
                 await existingTracking.save();
                 res.status(200).send({ message: 'Tracking updated successfully' });
             } else {
-                const tracking = new Tracking({ url, uid, time });
+                const tracking = new Tracking({ url, uid: req.session.user._id, time, captureDate: startOfDay });
                 await tracking.save();
                 res.status(200).send({ message: 'Tracked successfully' });
             }
