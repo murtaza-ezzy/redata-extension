@@ -14,10 +14,6 @@ function SignUpPage() {
         // Implement Google sign-in logic here
     };
 
-    const handleForgotPassword = () => {
-        // Implement your forgot password logic here
-    };
-
     const backgroundStyle = {
         backgroundImage: `url('assets/images/bg.jpeg')`,
         backgroundSize: 'cover', // Cover the entire space of the container
@@ -36,8 +32,11 @@ function SignUpPage() {
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-body">
-                                <h2 className="card-title text-center">Login</h2>
+                                <h2 className="card-title text-center">Sign Up</h2>
                                 <form onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                        <input type="text" className="form-control" placeholder="Name" required />
+                                    </div>
                                     <div className="mb-3">
                                         <input type="email" className="form-control" placeholder="Email" required />
                                     </div>
@@ -45,10 +44,25 @@ function SignUpPage() {
                                         <input type="password" className="form-control" placeholder="Password" required />
                                     </div>
                                     <div className="mb-4">
-                                        <a href="#!" onClick={handleForgotPassword} style={{ textDecoration: 'none' }}>Forgot Password?</a>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="occupation" id="student" value="student" />
+                                            <label className="form-check-label" htmlFor="student">Student</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="occupation" id="others" value="others" />
+                                            <label className="form-check-label" htmlFor="others">Others</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="terms" />
+                                            <label className="form-check-label" htmlFor="terms">
+                                                I agree to the SunstalInbox's Terms & Conditions
+                                            </label>
+                                        </div>
                                     </div>
                                     <div className="d-grid gap-2">
-                                        <button type="submit" className="btn btn-dark">Login</button>
+                                        <button type="submit" className="btn btn-dark">Sign Up</button>
                                     </div>
                                     <div className="d-grid gap-2 mt-2">
                                         <button type="button" className="btn btn-dark" onClick={handleGoogleSignIn}>
