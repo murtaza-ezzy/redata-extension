@@ -2,7 +2,13 @@
     "name": "ReData",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["activeTab","tabs"],
+    "permissions": ["activeTab","tabs","identity"],
+    "oauth2": {
+      "client_id": "643928758990-uua2tpt3uluae6lqf53dfjtbns6samsn.apps.googleusercontent.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/userinfo.profile"
+      ]
+    },
     "action": {
       "default_popup": "./build/index.html",
       "default_width": 600,
@@ -16,5 +22,8 @@
         "matches": ["<all_urls>"],
         "js": ["contentScript.js"]
       }
-    ]
+    ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+    }
 }

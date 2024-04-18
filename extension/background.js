@@ -93,3 +93,31 @@ chrome.windows.onFocusChanged.addListener((windowId) => {
 chrome.windows.onRemoved.addListener(() => {
     updateTimeSpent(null, null);
 });
+
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.identity.getAuthToken({ interactive: true }, function (token) {
+        if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError);
+            return;
+        }
+
+        console.log(`Token acquired: ${token}`);
+        // You can now use this token to make API calls
+    });
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "signIn") {
+        console.log("called");
+        chrome.identity.getAuthToken({ interactive: true }, function (token) {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError.message);
+                return sendResponse({ error: chrome.runtime.lastError.message });
+            }
+
+            sendResponse({ token: token });
+        });
+
+        return true; // Indicates response is asynchronous
+    }
+});

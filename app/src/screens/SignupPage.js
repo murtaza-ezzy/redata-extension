@@ -1,6 +1,8 @@
+/* global chrome */
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure Bootstrap CSS is imported
-// import backgroundImage from 'assets/images/bg.jpeg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import GoogleSignIn from '../components/GoogleSignIn';
+
 
 function SignUpPage() {
     // Handle the form submission
@@ -13,6 +15,23 @@ function SignUpPage() {
     const handleGoogleSignIn = () => {
         // Implement Google sign-in logic here
     };
+
+    const responseGoogle = (response) => {
+        console.log(response);
+        // Handle successful login here, like storing user data or managing session
+    };
+
+    const errorGoogle = (error) => {
+        console.error(error);
+        // Handle error, if any
+    };
+
+    const handleSignIn = () => {
+        chrome.runtime.sendMessage({ action: "signIn" }, function (response) {
+            console.log('User token:', response.token);
+        });
+    };
+
 
     const backgroundStyle = {
         backgroundImage: `url('assets/images/bg.jpeg')`,
@@ -65,7 +84,7 @@ function SignUpPage() {
                                         <button type="submit" className="btn btn-dark">Sign Up</button>
                                     </div>
                                     <div className="d-grid gap-2 mt-2">
-                                        <button type="button" className="btn btn-dark" onClick={handleGoogleSignIn}>
+                                        <button type="button" className="btn btn-dark" onClick={handleSignIn}>
                                             <img src="assets/images/google.png" alt="Google sign-in" />
                                             &nbsp;
                                             Continue with Google
