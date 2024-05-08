@@ -2,10 +2,11 @@
     "name": "ReData",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["activeTab","tabs","identity"],
+    "permissions": ["activeTab","tabs","identity", "identity.email"],
     "oauth2": {
       "client_id": "643928758990-uua2tpt3uluae6lqf53dfjtbns6samsn.apps.googleusercontent.com",
       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile"
       ]
     },
